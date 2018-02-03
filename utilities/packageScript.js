@@ -12,7 +12,7 @@ This is a script that sets up another script that will npm install any
 necessary dev packages that we don't already have. 
 
 1) First we read in the contents of our own package.json dependencies and devDependencies
-2) We search how many modules there are in devmodules - for each module we travers into their
+2) We search how many modules there are in devmodules - for each module we traverse into their
 package.json file and grab their dependencides.
 3) We push their dependencies into an Array and forEach one we create an 
  `npm install ${dependency} --save`  string
@@ -21,14 +21,18 @@ package.json file and grab their dependencides.
 */
 
 // read the contents of package.json 
+
 let contents = fs.readFileSync(packageFile);
 let contentObj = JSON.parse(contents);
+
+// Read the dependencies 
 let packageList = Object.entries(contentObj.dependencies)
 
+//
 let packagesArr = [];
 let packagesVersion = [];
 
-// run function that pushes package information into storage arrays
+// run function that pushes package dependencies into storage arrays
 let packageFunction = function(list, packageArr, versionArr){
   for(let i = 0; i < packageList.length; i++){
     packageArr.push(packageList[i][0])
@@ -77,6 +81,7 @@ if(fs.existsSync(devmodulesDir)){
     })
   }
 }
+
 // WISH LIST add a better section to : 
 // make sure there are no duplicates in the "newPackages array"
 // this current technique is trash   -- also doesn't account for version differences

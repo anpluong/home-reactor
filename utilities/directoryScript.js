@@ -26,16 +26,7 @@ if(fs.existsSync(dirDev)){
 }
 console.log('dirArr after Dev: ',dirArr)
 
-
-// print out files
-/*
-const listDirectories = fs.readdir(dir, (err,files) => {
-   for(let i = 0; i < files.length; i++){
-     console.log(files[i]);
-   }
- })
-*/
-  
+ 
 // create import strings that will be needed
 var strArrStaticImport = [
   "import React, { Component } from 'react'\n",

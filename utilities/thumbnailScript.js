@@ -20,15 +20,11 @@ Solving the file AND folder possibility problem
 
 */
 const getDirectories = (srcPath, outputFolders, outputFiles) => {
-  console.log('read dir Sync in: ', srcPath + '\n')
   fs.readdirSync(srcPath).filter(file => {
     if(fs.statSync(path.join(srcPath, file)).isDirectory() === true){
-      console.log('folder: ', file)
       outputFolders.push(file)
     }else if(fs.statSync(path.join(srcPath, file)).isFile() === true){
-      console.log('file: ', file)
       if(!file.includes('.png'||'.css')){
-        console.log('file')
         outputFiles.push(file)
       }
     }else{
@@ -41,22 +37,7 @@ getDirectories(dir, folderArr, fileArr);
 if(fs.existsSync(dirDev)){
   getDirectories(dirDev, folderArrDev, fileArrDev)
 }
-/*
-// ------------------------------------------------
-// ABOVE MIGHT BE ABLE TO HANDLE THIS SECTION BETTER -- obsolete?
-// // Synchronous directory read so that fileArr is full for next step 
-// fs.readdirSync(dir).forEach(file => {
-//   fileArr.push(file);
-// })
-// console.log(fileArr);
-// // check to see if devthumbnails exists; if so, add to thumbnails array (fileArr)
-// if(fs.existsSync(dirDev)){
-//   console.log('folder exists')
-//   fs.readdirSync(dirDev).forEach(file => {
-//     fileArrDev.push(file);
-//   })
-// }
-*/
+
 // create import strings that will be needed
 const strArrStaticImport = [
   "import React, { Component } from 'react';\n",
@@ -95,7 +76,6 @@ folderArr.forEach(folder => {  // Slice folder names down to correct import/link
   let currThumb = folder.slice(0,folder.length) // name of the .jsx file inside folder
   let curr = folder.slice(0,folder.length-5)
   let currLower = curr.toLowerCase();
-  console.log('\nfolderArr curr, currLower: ', curr, currLower)
   let uppered = currThumb.charAt(0).toUpperCase() + currThumb.slice(1); 
   let currImportStr = `import ${uppered} from './thumbnails/${currThumbFolder}/${uppered}'\n`
   strArrDynamicImport.push(currImportStr)
@@ -109,7 +89,6 @@ fileArr.forEach(file => {  // Slice file names down to correct import/link forma
   let currThumb = file.slice(0,file.length-4)
   let curr = file.slice(0,file.length-9)
   let currLower = curr.toLowerCase();
-  console.log('\nfileArr curr, currLower: ', curr, currLower)
   let uppered = currThumb.charAt(0).toUpperCase() + currThumb.slice(1); 
   let currImportStr = `import ${uppered} from './thumbnails/${currThumb}'\n`
   strArrDynamicImport.push(currImportStr)
@@ -130,9 +109,7 @@ folderArrDev.forEach(folder => {  // Slice folder names down to correct import/l
   let currThumb = folder.slice(0,folder.length) // name of the .jsx file inside folder
   let curr = folder.slice(0,folder.length-5)
   let currLower = curr.toLowerCase();
-  console.log('\nfolderArr curr, currLower: ', curr, currLower)
   let uppered = currThumbFolder.charAt(0).toUpperCase() + currThumbFolder.slice(1); 
-  console.log('\nuppered: ', uppered, '\n\n\n\n')
   let currImportStr = `import ${uppered} from './devthumbnails/${currThumbFolder}/${uppered}'\n`
   strArrDynamicImport.push(currImportStr)
   let currLinkStr = `        <a><Link to={'/${currLower}'}>\n` +
@@ -143,7 +120,6 @@ folderArrDev.forEach(folder => {  // Slice folder names down to correct import/l
 // Then, do it for all the singular .jsx files
 fileArrDev.forEach(fileDev => {  // Slice file names down to correct import/link formats
   let currThumb = fileDev.slice(0,fileDev.length-4)
-  console.log('currThumb: ',currThumb)
   let curr = fileDev.slice(0,fileDev.length-9)
   let currLower = curr.toLowerCase();
   let uppered = currThumb.charAt(0).toUpperCase() + currThumb.slice(1); 
@@ -161,7 +137,7 @@ fileArrDev.forEach(fileDev => {  // Slice file names down to correct import/link
 
 // getting leftScroll location from top of file
 // delete old file if it exists
-console.log('leftScrollFile: ', leftScrollFile);
+console.log('leftScrollFile: ', leftScrollFile, '\n');
 if (fs.existsSync(leftScrollFile)) {
   fs.unlinkSync(leftScrollFile)
 }
@@ -213,6 +189,6 @@ for(let i = 0; i < strArrClose.length; i++){
 
 fs.readFile(leftScrollFile, 'utf8', function(err,data){
   if(err) throw err;
-  console.log('OK ' + leftScrollFile);
+  console.log('OK \n' + leftScrollFile);
   console.log(data)
 });

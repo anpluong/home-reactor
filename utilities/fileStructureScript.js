@@ -23,14 +23,11 @@ if(fs.existsSync(devmodulesFolder)){ // if neither folder exists, just proceed t
     fs.mkdirSync(path.join(__dirname,devthumbnailsFolder))
   }
   const getDirectories = (srcPath, outputFolders, outputFiles) => {
-    console.log('read dir Sync in: ', srcPath + '\n')
     fs.readdirSync(srcPath).filter(file => {
       if(fs.statSync(path.join(srcPath, file)).isDirectory() === true){
-        console.log('folder: ', file)
         outputFolders.push(file)
       }else if(fs.statSync(path.join(srcPath, file)).isFile() === true){
         if(!file.includes('.png'||'.PNG'||'.css')){
-          console.log('file: ', file)      
           outputFiles.push(file)
         }
       }else{
@@ -38,7 +35,6 @@ if(fs.existsSync(devmodulesFolder)){ // if neither folder exists, just proceed t
       }
     })
     outputFolders.concat(outputFiles);
-    console.log(outputFolders)
   }
   let modFolders = []; let modFiles = []; let thumbFolders = []; let thumbFiles = [];
   //check the # of folders in devmodules
@@ -49,8 +45,6 @@ if(fs.existsSync(devmodulesFolder)){ // if neither folder exists, just proceed t
   getDirectories(devthumbnailsFolder, thumbFolders, thumbFiles)
   let modLength = modFolders.length;
   let thumbLength = thumbFolders.length;
-  console.log(modLength);
-  console.log(thumbLength);
   // perform above section for both the Sample and Developers files/folders
     // if the numbers match - exit
   if(modLength !== thumbLength){
@@ -58,7 +52,7 @@ if(fs.existsSync(devmodulesFolder)){ // if neither folder exists, just proceed t
     modFolders.forEach(folder =>{
       let fileToAdd = folder.charAt(0).toUpperCase() + folder.slice(1); 
       let fileToAddThumb = fileToAdd+'Thumb';
-      console.log('fileToAdd: ', folder);
+      console.log('fileToAdd: ', folder, '\n');
       if(thumbFolders.indexOf(folder)=== -1){
          // create a .jsx file with that devmodulesArr[i] name
         fs.writeFile(path.join(__dirname, devthumbnailsFolder,fileToAddThumb+'.jsx'),

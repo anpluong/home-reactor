@@ -16,7 +16,7 @@ necessary dev packages that we don't already have.
 package.json file and grab their dependencides.
 3) We push their dependencies into an Array and forEach one we create an 
  `npm install ${dependency} --save`  string
-4) We push all those npm install strings into another script file.
+4) We use execSync to create a child process and install each dependency.
 5) We run that script file in our docker build process 
 */
 

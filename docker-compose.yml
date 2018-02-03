@@ -6,6 +6,8 @@ services:
     image: programminpete/reacthomehub:ubuntu
     ports:
       - "3000:3000"
+    volumes:
+      - ./keys.js:/usr/app/src/keys.js
     command: npm run setup-start
 
   #docker-compose run --rm --service-ports dev
@@ -16,4 +18,25 @@ services:
     volumes:
       - ./devmodules/:/usr/app/src/devmodules
       - ./devthumbnails/:/usr/app/src/devthumbnails
+      - ./keys.js:/usr/app/src/keys.js
+    command: npm run setup-start
+
+  #docker-compose run --rm --service-ports pistart
+  pistart:
+    image: programminpete/reacthomehub:arm32
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./keys.js:/usr/app/src/keys.js
+    command: npm run setup-start
+
+  #docker-compose run --rm --service-ports pidev
+  pidev:
+    image: programminpete/reacthomehub:arm32
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./devmodules/:/usr/app/src/devmodules
+      - ./devthumbnails/:/usr/app/src/devthumbnails
+      - ./keys.js:/usr/app/src/keys.js
     command: npm run setup-start

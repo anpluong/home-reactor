@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import keys from '../keys';
 import '../thumbnails.css';
 
-const WUNDERGROUND_KEY = "9ede5860ddfa699b";
+const WUNDERGROUND_KEY = keys.wunderground_key;
 
 const ICON_SET = {
     chancesleet: "snowy",

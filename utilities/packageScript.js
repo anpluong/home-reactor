@@ -22,6 +22,7 @@ package.json file and grab their dependencides.
 
 // read the contents of package.json 
 
+// used in setup start and setup
 let contents = fs.readFileSync(packageFile);
 let contentObj = JSON.parse(contents);
 
